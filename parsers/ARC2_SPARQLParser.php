@@ -781,7 +781,7 @@ class ARC2_SPARQLParser extends ARC2_TurtleParser {
     /* 57.., 58.. */
 
     function xBuiltInCall($v) {
-        if ($sub_r = $this->x('(str|lang|langmatches|datatype|bound|sameterm|isiri|isuri|isblank|isliteral|regex)\s*\(', $v)) {
+        if ($sub_r = $this->x('(str|lang|langmatches|datatype|bound|sameterm|isiri|isuri|isblank|isliteral|concat|regex)\s*\(', $v)) {
             $r = array('type' => 'built_in_call', 'call' => strtolower($sub_r[1]));
             if ((list($sub_r, $sub_v) = $this->xArgList('(' . $sub_r[2])) && is_array($sub_r)) {
                 $r['args'] = $sub_r;
