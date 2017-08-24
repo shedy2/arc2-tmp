@@ -389,6 +389,10 @@ class ARC2_SPARQLParser extends ARC2_TurtleParser {
                     $r['patterns'][] = array('type' => 'filter', 'constraint' => $sub_r);
                     $proceed = 1;
                 }
+                elseif ((list($sub_r, $var, $sub_v) = $this->xBind($sub_v)) && $sub_r) {
+                    $r['patterns'][] = array('type' => 'bind', 'var'=>$var, 'constraint' => $sub_r);
+                    $proceed = 1;
+                }
                 if ($sub_r = $this->x('\.', $sub_v)) {
                     $sub_v = $sub_r[1];
                 }
@@ -531,6 +535,30 @@ class ARC2_SPARQLParser extends ARC2_TurtleParser {
             $this->addError('Incomplete FILTER');
         }
         return array(0, $v);
+    }
+
+    function xBind($v) {
+        if ($r = $this->x('BIND', $v)) {
+            $sub_v = $r[1];
+            $re = "/[\s]*as[\s]*[\?]{1}[a-zA-Z0-9_]{1,}/i";
+            if(preg_match($re, $sub_v,$matches)) {
+
+                $sub_v = preg_replace($re,'',$sub_v,1);
+                preg_match("/[\?]{1}[a-zA-Z0-9_]{1,}/", $matches[0],$matches);
+                $var = $matches[0];
+                if ((list($r, $sub_v) = $this->xBrackettedExpression($sub_v)) && $r) {
+                    return array($r, $var, $sub_v);
+                }
+                if ((list($r, $sub_v) = $this->xBuiltInCall($sub_v)) && $r) {
+                    return array($r, $var, $sub_v);
+                }
+                if ((list($r, $sub_v) = $this->xFunctionCall($sub_v)) && $r) {
+                    return array($r, $var, $sub_v);
+                }
+            }
+            $this->addError('Incomplete BIND');
+        }
+        return array(0, false, $v);
     }
 
     /* 28.. */

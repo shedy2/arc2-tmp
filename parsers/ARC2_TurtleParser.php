@@ -327,7 +327,7 @@ class ARC2_TurtleParser extends ARC2_RDFParser {
                         $this->addError('Object expected, } found.');
                     }
                 }
-                if ($sub_r = $this->x('(\}|\{|OPTIONAL|MINUS|FILTER|GRAPH)', $sub_v)) {
+                if ($sub_r = $this->x('(\}|\{|OPTIONAL|MINUS|BIND|FILTER|GRAPH)', $sub_v)) {
                     $buffer = $sub_v;
                     $r = array_merge($r, $pre_r);
                     $pre_r = array();
