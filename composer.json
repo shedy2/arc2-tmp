@@ -1,5 +1,5 @@
 {
-    "name": "a2e/arc2",
+    "name": "semsol/arc2",
 	"type": "library",
     "description":  "ARC2 RDF library for PHP",
 	"keywords": ["rdf","sparql"],
