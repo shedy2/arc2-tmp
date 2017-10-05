@@ -144,8 +144,24 @@ class ARC2_SPARQLParser extends ARC2_TurtleParser {
         return array(0, $v);
     }
 
+    /**
+     * Ищет следующую переменную в переменных проекций (между SELECT и WHERE)
+     * @param $v
+     * @return array
+     */
     function xResultVar($v) {
-        return $this->xVar($v);
+        list($found, $rest) = $this->xVar($v);
+
+        // Пробуем найти вызовы функций
+        if ($found == 0) {
+            if (preg_match('/^(?:\s*\w*)(\((?:[^()]|(?-1))*\))(.*)$/si', $rest, $matches)) {
+                // Пока не запариваемся их парсить, просто сохраняем в виде строки
+                $found = array('value' => $matches[1], 'type' => 'funcSparql');
+                $rest = $matches[2];
+            }
+        }
+
+        return array($found, $rest);
     }
 
     /* 6.. */
