@@ -1,7 +1,7 @@
 {
-    "name": "shedy2/arc2",
+    "name": "wikilect/arc2",
 	"type": "library",
-    "description":  "ARC2 RDF library for PHP",
+    "description":  "ARC2 RDF fork library (using by wikilect) for PHP",
 	"keywords": ["rdf","sparql"],
 	"homepage": "https://github.com/shedy2/arc2",
     "license": "W3C",
