@@ -1,9 +1,9 @@
 {
-    "name": "semsol/arc2",
+    "name": "shedy2/arc2",
 	"type": "library",
     "description":  "ARC2 RDF library for PHP",
 	"keywords": ["rdf","sparql"],
-	"homepage": "https://github.com/semsol/arc2",
+	"homepage": "https://github.com/shedy2/arc2",
     "license": "W3C",
     "authors": [
         {
